@@ -1,6 +1,6 @@
 #include "stack.h"
 
-t_stack		*new_stack(int data)
+t_stack		*new_stack(char data)
 {
     t_stack *node = (t_stack*)malloc(sizeof(t_stack));
     node->data = data;
@@ -13,12 +13,12 @@ int                     is_empty(t_stack *head)
     return !head;
 }
 
-void		push(t_stack **head, int data)
+void		push(t_stack **head, char data)
 {
     t_stack *node = new_stack(data);
     node->next = *head;
     *head = node;
-    printf("%d pushed to stack\n", data);
+    printf("%c pushed to stack\n", data);
 }
 
 int		pop(t_stack **head)
