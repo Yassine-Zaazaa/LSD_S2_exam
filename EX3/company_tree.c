@@ -17,11 +17,17 @@ typedef struct      s_tree
 
 int                 calculate_subordinates(employee  *node)
 {
-    // write your code here
-    // You are giving a root of a tree, and you goal is to set numnber of 
-    // subordinates of each node, and set the value to the array subordinates
-    // the array indexing starting from 1.
+    int result = 0;
+    if (!node)
+        return (0);
+    result += !(node->right != NULL);
+    result += !(!node->left != NULL);
+    result += calculate_subordinates(node->right);
+    result += calculate_subordinates(node->left);
+    subordinates[node->name] = result;
+    return (result);
 }
+
 
 employee            *create_employees_tree(int *arr, int employee_num);
 
@@ -35,7 +41,7 @@ int main()
         scanf("%d", &arr[i]);
     employee *company_tree = create_employees_tree(arr, n);
     
-    // calculate_subordinates(company_tree);
+    calculate_subordinates(company_tree);
 
     // Printing the solution
     for (int i = 1; i <= n; i++)
@@ -53,7 +59,7 @@ employee            *find_employee(int employee_name, employee *node)
     employee *left, *right;
     left = find_employee(employee_name, node->left);
     right = find_employee(employee_name, node->right);
-    return left ? left : right;
+    return left != NULL ? left : right;
 }
 
 
@@ -70,17 +76,12 @@ employee            *create_employees_tree(int *arr, int employee_num)
     {
         curr = (employee*)malloc(sizeof(employee));
         curr->name = i;
-        root->left = root->right = NULL;
-        target = find_employee(i, root);
+        curr->left = curr->right = NULL;
+        target = find_employee(arr[i], root);
         if (target->right == NULL)
             target->right = curr;
         else
             target->left = curr;
     }
     return root;
-}
-
-void                test_program()
-{
-
 }
