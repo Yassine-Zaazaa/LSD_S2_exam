@@ -4,11 +4,12 @@
 
 char *reverse(char *input) {
     int len = strlen(input);
-    char * output = (char *)malloc((len + 1)* sizeof(char));
+    char *output = (char *)malloc(sizeof(char) * len + 1);
     for (int i = 0; i < len; i++) {
         output[len - i - 1] = input[i];
     }
-    return output;
+    output[len] = '\0';
+    return (output);
 }
 
 int main(int ac, char **av)
